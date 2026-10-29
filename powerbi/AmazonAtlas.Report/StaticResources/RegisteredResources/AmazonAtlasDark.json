@@ -12,6 +12,11 @@
   ],
   "background": "#060D1A",
   "foreground": "#FFFFFF",
+  "backgroundLight": "#12233B",
+  "backgroundNeutral": "#22384F",
+  "backgroundDark": "#060D1A",
+  "foregroundNeutralSecondary": "#9DB2CC",
+  "shapeStroke": "#22384F",
   "tableAccent": "#FF9F1A",
   "good": "#2FD39B",
   "neutral": "#FFC24B",
@@ -171,6 +176,17 @@
     },
     "slicer": {
       "*": {
+        "dropdown": [
+          {
+            "borderColor": {
+              "solid": {
+                "color": "#22384F"
+              }
+            },
+            "accentBarShow": false,
+            "borderRadius": 4
+          }
+        ],
         "header": [
           {
             "show": false,

@@ -40,7 +40,7 @@
             "mode": {
               "expr": {
                 "Literal": {
-                  "Value": "'Tile'"
+                  "Value": "'Dropdown'"
                 }
               }
             }
