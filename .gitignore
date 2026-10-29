@@ -1,0 +1,11 @@
+# Power BI Desktop local artifacts
+.pbi/
+
+# backup snapshots
+_previous/
+*_backup_*/
+
+# OS noise
+Thumbs.db
+desktop.ini
+.DS_Store

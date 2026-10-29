@@ -1,0 +1,23 @@
+table Dim_BalanceLine
+	lineageTag: eac4ed9e-3afa-46f5-a8f9-a5b9a8327dbc
+
+	measure 'Balance line value' = COALESCE ( SWITCH ( SELECTEDVALUE ( Dim_BalanceLine[Balance line] ), "Total assets", [Total assets], "Total liabilities", [Total liabilities], "Total equity", [Total equity] ), 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 05 Balance sheet
+		lineageTag: 0a44ff50-c2bb-44ec-a42b-4b70d06baa49
+
+	column 'Balance line'
+		dataType: string
+		lineageTag: 1626417a-29fd-4fbc-ade5-8008dd61b103
+		sourceColumn: [Balance line]
+
+	column 'Sort order'
+		dataType: int64
+		summarizeBy: none
+		isHidden
+		lineageTag: e7ae5c64-7103-4f93-a5ac-f3ece85eae88
+		sourceColumn: [Sort order]
+
+	partition Dim_BalanceLine = calculated
+		mode: import
+		source = DATATABLE("Balance line", STRING, "Sort order", INTEGER, {{"Total assets", 1}, {"Total liabilities", 2}, {"Total equity", 3}})

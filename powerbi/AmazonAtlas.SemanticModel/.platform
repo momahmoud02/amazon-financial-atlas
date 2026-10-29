@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Amazon Financial Atlas"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "9c2c6f40-8a51-4f0b-9f0b-6d1a2b3c4d5e"
+  }
+}

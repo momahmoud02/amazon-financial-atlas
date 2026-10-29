@@ -1,0 +1,24 @@
+table Dim_Year
+	lineageTag: d23b42a1-c65a-4eaa-ae17-b4d0c01dbc80
+
+	measure 'Sales CAGR' = VAR a = MIN ( Dim_Year[Year] ) VAR b = MAX ( Dim_Year[Year] ) VAR va = CALCULATE ( [Net sales], Dim_Year[Year] = a ) VAR vb = CALCULATE ( [Net sales], Dim_Year[Year] = b ) RETURN IF ( b > a, ( DIVIDE ( vb, va ) ) ^ ( 1 / ( b - a ) ) - 1 ) + 0
+		formatString: 0.0%
+		displayFolder: 03 Growth
+		lineageTag: 5593de33-1c60-4f00-a794-91786f75576e
+
+	column Year
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		lineageTag: bcab70f1-0efa-4fee-a81b-fbe9dbe6eb5a
+		sourceColumn: [Year]
+
+	column FY
+		dataType: string
+		lineageTag: 17d337b6-4169-42f2-ac47-78a773b8f435
+		sourceColumn: [FY]
+		sortByColumn: Year
+
+	partition Dim_Year = calculated
+		mode: import
+		source = DATATABLE("Year", INTEGER, "FY", STRING, {{2021, "FY2021"}, {2022, "FY2022"}, {2023, "FY2023"}, {2024, "FY2024"}, {2025, "FY2025"}})

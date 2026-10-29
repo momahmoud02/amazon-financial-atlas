@@ -1,0 +1,97 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "Fluent2-CY26SU10",
+      "reportVersionAtImport": {
+        "visual": "2.14.0",
+        "report": "3.4.0",
+        "page": "2.3.1"
+      },
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "Amazon Atlas Dark",
+      "reportVersionAtImport": {
+        "visual": "2.14.0",
+        "report": "3.4.0",
+        "page": "2.3.1"
+      },
+      "type": "RegisteredResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "filterConfig": {
+    "filters": []
+  },
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "Fluent2-CY26SU10",
+          "path": "BaseThemes/Fluent2-CY26SU10.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "Amazon Atlas Dark",
+          "path": "AmazonAtlasDark.json",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "amazon-bg.jpg",
+          "path": "amazon-bg.jpg",
+          "type": "Image"
+        },
+        {
+          "name": "amazon-logo.png",
+          "path": "amazon-logo.png",
+          "type": "Image"
+        }
+      ]
+    },
+    {
+      "name": "appleGlobe7BFE14AA1D8643568FE1F940E57A3BDF",
+      "type": "CustomVisual",
+      "items": [
+        {
+          "name": "appleGlobe7BFE14AA1D8643568FE1F940E57A3BDF.pbiviz.json",
+          "path": "resources/appleGlobe7BFE14AA1D8643568FE1F940E57A3BDF.pbiviz.json",
+          "type": "CustomVisualMetadata"
+        }
+      ]
+    }
+  ],
+  "publicCustomVisuals": [
+    "appleGlobe7BFE14AA1D8643568FE1F940E57A3BDF"
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true
+  }
+}

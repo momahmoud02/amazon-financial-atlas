@@ -1,0 +1,21 @@
+sheet,metric,year,workbook_value,audited_value,delta,note
+Revenue Mix,Physical Stores,2021,172000,17075,-154925,
+Revenue Mix,Physical Stores,2022,157000,18963,-138037,
+Revenue Mix,Physical Stores,2023,147000,20030,-126970,
+Revenue Mix,Physical Stores,2024,145000,21215,-123785,
+Revenue Mix,Physical Stores,2025,142000,22561,-119439,
+Balance Sheet,Long-Term Debt,2023,161201,58314,-102887,Long-term debt excluding lease liabilities
+Balance Sheet,Long-Term Debt,2025,150000,65648,-84352,Long-term debt excluding lease liabilities
+Balance Sheet,Long-Term Debt,2024,135899,52623,-83276,Long-term debt excluding lease liabilities
+Balance Sheet,Long-Term Debt,2022,140118,67150,-72968,Long-term debt excluding lease liabilities
+Balance Sheet,Long-Term Debt,2021,116395,48744,-67651,Long-term debt excluding lease liabilities
+Cash Flow,Capital Expenditures,2022,5819,63645,57826,Purchases of property & equipment per 10-K
+Cash Flow,Capital Expenditures,2021,6100,61053,54953,Purchases of property & equipment per 10-K
+Cash Flow,Free Cash Flow,2022,40933,-11569,-52502,OCF − capex + proceeds from asset sales
+Cash Flow,Free Cash Flow,2021,40227,-9069,-49296,OCF − capex + proceeds from asset sales
+Balance Sheet,Shareholders' Equity,2025,380434,411065,30631,
+Balance Sheet,Shareholders' Equity,2024,259176,285970,26794,
+Balance Sheet,Total Liabilities,2024,365140,338924,-26216,
+Balance Sheet,Total Liabilities,2025,432000,406977,-25023,
+Revenue Mix,Online Stores,2023,250000,231872,-18128,
+Balance Sheet,Current Liabilities,2025,200000,218005,18005,

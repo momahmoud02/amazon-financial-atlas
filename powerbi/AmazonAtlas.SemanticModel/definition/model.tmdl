@@ -1,0 +1,29 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Dim_Year
+ref table Dim_Segment
+ref table Dim_Stream
+ref table Dim_Region
+ref table Dim_Market
+ref table Dim_LineItem
+ref table Dim_Sheet
+ref table Dim_CashLine
+ref table Dim_BalanceLine
+ref table Atlas_Design
+ref table Fact_Financials
+ref table Fact_Segments
+ref table Fact_RevenueMix
+ref table Fact_Expenses
+ref table Fact_Audit
+ref cultureInfo en-US

@@ -1,0 +1,17 @@
+{
+		"version": "1.0.0.0",
+		"author": {"name":"Apple Revenue Atlas","email":"support@example.com"},
+		"resources": [
+			{
+				"resourceId": "rId0",
+				"sourceType": 5,
+				"file": "resources/appleGlobe7BFE14AA1D8643568FE1F940E57A3BDF.pbiviz.json"
+			}
+		],
+		"visual": {"name":"appleGlobe","displayName":"Apple Revenue Atlas Globe","guid":"appleGlobe7BFE14AA1D8643568FE1F940E57A3BDF","visualClassName":"Visual","version":"1.0.0.0","description":"Interactive 3D revenue globe with a live day/night Earth, market markers, region highlighting and report-level cross-filtering. Built for the Apple FY2021-FY2025 geographic dataset and adaptable to other markets via optional latitude and longitude fields.","supportUrl":"https://learn.microsoft.com/power-bi/developer/visuals/","gitHubUrl":""},
+		"metadata": {
+			"pbivizjson": {
+				"resourceId": "rId0"
+			}
+		}
+	}

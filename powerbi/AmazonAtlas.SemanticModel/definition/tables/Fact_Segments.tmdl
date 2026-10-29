@@ -1,0 +1,32 @@
+table Fact_Segments
+	lineageTag: fc0fe1b4-1725-474d-a3d0-72ec04e5e10c
+
+	column Year
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		lineageTag: 5fec172c-9286-474a-aeb2-653686fd7eb3
+		sourceColumn: [Year]
+
+	column Segment
+		dataType: string
+		lineageTag: 37a1b9bf-7ab6-4ea3-a56c-86da73032d0b
+		sourceColumn: [Segment]
+
+	column Revenue
+		dataType: int64
+		formatString: $#,0.0"M"
+		isHidden
+		lineageTag: e869433a-4591-4d96-ab01-c6f691a46d9a
+		sourceColumn: [Revenue]
+
+	column 'Operating income'
+		dataType: int64
+		formatString: $#,0.0"M"
+		isHidden
+		lineageTag: c9ac025f-a8d1-4ca4-a676-862c83fbc2b6
+		sourceColumn: [Operating income]
+
+	partition Fact_Segments = calculated
+		mode: import
+		source = DATATABLE("Year", INTEGER, "Segment", STRING, "Revenue", INTEGER, "Operating income", INTEGER, {{2021, "North America", 279833, 7271}, {2021, "International", 127787, -924}, {2021, "AWS", 62202, 18532}, {2022, "North America", 315880, -2847}, {2022, "International", 118007, -7746}, {2022, "AWS", 80096, 22841}, {2023, "North America", 352828, 14877}, {2023, "International", 131200, -2656}, {2023, "AWS", 90757, 24631}, {2024, "North America", 387497, 24967}, {2024, "International", 142906, 3792}, {2024, "AWS", 107556, 39834}, {2025, "North America", 426305, 29619}, {2025, "International", 161894, 4750}, {2025, "AWS", 128725, 45606}})

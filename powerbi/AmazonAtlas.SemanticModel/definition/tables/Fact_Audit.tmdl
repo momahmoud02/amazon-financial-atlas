@@ -1,0 +1,86 @@
+table Fact_Audit
+	lineageTag: 37d3dbed-3417-462c-a7b2-7bb7fff429e1
+
+	measure Corrections = COALESCE ( COUNTROWS ( Fact_Audit ), 0 )
+		formatString: #,0
+		displayFolder: 08 Audit
+		lineageTag: 43c2b9f0-043c-4f76-a0e0-f587a1bb6a42
+
+	measure 'Total adjustment' = COALESCE ( SUMX ( Fact_Audit, ABS ( Fact_Audit[Delta] ) ) / 1000, 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 08 Audit
+		lineageTag: 4519fb8d-3212-4fb5-a317-53fe3b56322d
+
+	measure 'Largest adjustment' = COALESCE ( MAXX ( Fact_Audit, ABS ( Fact_Audit[Delta] ) ) / 1000, 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 08 Audit
+		lineageTag: 3ba0cd3a-5ba7-4673-a847-1504e6b2316a
+
+	measure 'Metrics reconciled' = COALESCE ( DISTINCTCOUNT ( Fact_Audit[Metric] ), 0 )
+		formatString: #,0
+		displayFolder: 08 Audit
+		lineageTag: d5222ec6-6b42-461d-ac65-ddc96ce7945a
+
+	measure 'Sheets audited' = COALESCE ( DISTINCTCOUNT ( Fact_Audit[Sheet] ), 0 )
+		formatString: #,0
+		displayFolder: 08 Audit
+		lineageTag: 14e65680-b797-4432-a621-72d81ef7636e
+
+	measure 'Years covered' = COALESCE ( DISTINCTCOUNT ( Fact_Audit[Year] ), 0 )
+		formatString: #,0
+		displayFolder: 08 Audit
+		lineageTag: 80a23f78-9195-4982-a664-11bfee741af9
+
+	measure 'Workbook value shown' = COALESCE ( MAX ( Fact_Audit[Workbook value] ), 0 )
+		formatString: $#,0"M"
+		displayFolder: 08 Audit
+		lineageTag: 1c2d0101-0b87-4b87-a31c-e817b4407153
+
+	measure 'Audited value shown' = COALESCE ( MAX ( Fact_Audit[Audited value] ), 0 )
+		formatString: $#,0"M"
+		displayFolder: 08 Audit
+		lineageTag: adc9fd00-772f-4183-a4f1-ecf4c77d3aad
+
+	measure 'Delta shown' = COALESCE ( MAX ( Fact_Audit[Delta] ), 0 )
+		formatString: +$#,0"M";-$#,0"M";"—"
+		displayFolder: 08 Audit
+		lineageTag: 377cfbdd-863a-4802-a0fb-4199e7f2bda7
+
+	column Sheet
+		dataType: string
+		lineageTag: 078199dc-ae90-416f-a1ef-9c031db370bb
+		sourceColumn: [Sheet]
+
+	column Metric
+		dataType: string
+		lineageTag: 5ffa21f8-5255-4f55-ac55-88a0fdacbc81
+		sourceColumn: [Metric]
+
+	column Year
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		lineageTag: e26f429a-5509-4059-a35a-6b53c741a312
+		sourceColumn: [Year]
+
+	column 'Workbook value'
+		dataType: int64
+		formatString: $#,0"M"
+		lineageTag: f5b322b1-469e-4bb3-afa9-5575c8a2bf42
+		sourceColumn: [Workbook value]
+
+	column 'Audited value'
+		dataType: int64
+		formatString: $#,0"M"
+		lineageTag: 30f6c08a-f491-46bb-a15b-4a44d1c944c1
+		sourceColumn: [Audited value]
+
+	column Delta
+		dataType: int64
+		formatString: +$#,0"M";-$#,0"M"
+		lineageTag: 33f1e7b2-11dc-4ea6-ad67-7130855f76a8
+		sourceColumn: [Delta]
+
+	partition Fact_Audit = calculated
+		mode: import
+		source = DATATABLE("Sheet", STRING, "Metric", STRING, "Year", INTEGER, "Workbook value", INTEGER, "Audited value", INTEGER, "Delta", INTEGER, {{"Income Statement", "Operating Income", 2024, 68418, 68593, 175}, {"Income Statement", "Operating Income", 2025, 79735, 79975, 240}, {"Income Statement", "Net Income", 2025, 77230, 77670, 440}, {"Cash Flow", "Operating Cash Flow", 2023, 84981, 84946, -35}, {"Cash Flow", "Operating Cash Flow", 2025, 139500, 139514, 14}, {"Cash Flow", "Capital Expenditures", 2021, 6100, 61053, 54953}, {"Cash Flow", "Capital Expenditures", 2022, 5819, 63645, 57826}, {"Cash Flow", "Capital Expenditures", 2023, 48490, 52729, 4239}, {"Cash Flow", "Capital Expenditures", 2024, 77707, 82999, 5292}, {"Cash Flow", "Capital Expenditures", 2025, 128000, 131819, 3819}, {"Cash Flow", "Free Cash Flow", 2021, 40227, -9069, -49296}, {"Cash Flow", "Free Cash Flow", 2022, 40933, -11569, -52502}, {"Cash Flow", "Free Cash Flow", 2023, 36491, 36813, 322}, {"Cash Flow", "Free Cash Flow", 2024, 38170, 38219, 49}, {"Cash Flow", "Free Cash Flow", 2025, 11500, 11194, -306}, {"Balance Sheet", "Total Assets", 2024, 624316, 624894, 578}, {"Balance Sheet", "Total Assets", 2025, 812434, 818042, 5608}, {"Balance Sheet", "Total Liabilities", 2024, 365140, 338924, -26216}, {"Balance Sheet", "Total Liabilities", 2025, 432000, 406977, -25023}, {"Balance Sheet", "Shareholders' Equity", 2024, 259176, 285970, 26794}, {"Balance Sheet", "Shareholders' Equity", 2025, 380434, 411065, 30631}, {"Balance Sheet", "Current Assets", 2025, 220000, 229083, 9083}, {"Balance Sheet", "Current Liabilities", 2023, 172973, 164917, -8056}, {"Balance Sheet", "Current Liabilities", 2025, 200000, 218005, 18005}, {"Balance Sheet", "Long-Term Debt", 2021, 116395, 48744, -67651}, {"Balance Sheet", "Long-Term Debt", 2022, 140118, 67150, -72968}, {"Balance Sheet", "Long-Term Debt", 2023, 161201, 58314, -102887}, {"Balance Sheet", "Long-Term Debt", 2024, 135899, 52623, -83276}, {"Balance Sheet", "Long-Term Debt", 2025, 150000, 65648, -84352}, {"Segment Analysis", "North America Revenue", 2025, 426000, 426305, 305}, {"Segment Analysis", "North America Operating Income", 2021, 7548, 7271, -277}, {"Segment Analysis", "North America Operating Income", 2022, 2437, -2847, -5284}, {"Segment Analysis", "North America Operating Income", 2023, 14375, 14877, 502}, {"Segment Analysis", "North America Operating Income", 2024, 25359, 24967, -392}, {"Segment Analysis", "North America Operating Income", 2025, 36000, 29619, -6381}, {"Segment Analysis", "International Revenue", 2025, 162000, 161894, -106}, {"Segment Analysis", "International Operating Income", 2021, -1661, -924, 737}, {"Segment Analysis", "International Operating Income", 2022, -7646, -7746, -100}, {"Segment Analysis", "International Operating Income", 2023, 240, -2656, -2896}, {"Segment Analysis", "International Operating Income", 2024, 3753, 3792, 39}, {"Segment Analysis", "International Operating Income", 2025, 9000, 4750, -4250}, {"Segment Analysis", "AWS Revenue", 2022, 80116, 80096, -20}, {"Segment Analysis", "AWS Revenue", 2023, 90626, 90757, 131}, {"Segment Analysis", "AWS Revenue", 2025, 128000, 128725, 725}, {"Segment Analysis", "AWS Operating Income", 2024, 39830, 39834, 4}, {"Segment Analysis", "AWS Operating Income", 2025, 52000, 45606, -6394}, {"Revenue Mix", "Online Stores", 2023, 250000, 231872, -18128}, {"Revenue Mix", "Online Stores", 2024, 247000, 247029, 29}, {"Revenue Mix", "Online Stores", 2025, 260000, 269287, 9287}, {"Revenue Mix", "Physical Stores", 2021, 172000, 17075, -154925}, {"Revenue Mix", "Physical Stores", 2022, 157000, 18963, -138037}, {"Revenue Mix", "Physical Stores", 2023, 147000, 20030, -126970}, {"Revenue Mix", "Physical Stores", 2024, 145000, 21215, -123785}, {"Revenue Mix", "Physical Stores", 2025, 142000, 22561, -119439}, {"Revenue Mix", "Third-Party Seller Services", 2021, 117716, 103366, -14350}, {"Revenue Mix", "Third-Party Seller Services", 2024, 156000, 156146, 146}, {"Revenue Mix", "Third-Party Seller Services", 2025, 172000, 172162, 162}, {"Revenue Mix", "Advertising Services", 2022, 37438, 37739, 301}, {"Revenue Mix", "Advertising Services", 2023, 46877, 46906, 29}, {"Revenue Mix", "Advertising Services", 2024, 56800, 56214, -586}, {"Revenue Mix", "Advertising Services", 2025, 68000, 68635, 635}, {"Revenue Mix", "Subscription Services", 2022, 35337, 35218, -119}, {"Revenue Mix", "Subscription Services", 2023, 40310, 40209, -101}, {"Revenue Mix", "Subscription Services", 2024, 44500, 44374, -126}, {"Revenue Mix", "Subscription Services", 2025, 50000, 49619, -381}, {"Revenue Mix", "AWS", 2022, 80116, 80096, -20}, {"Revenue Mix", "AWS", 2023, 90626, 90757, 131}, {"Revenue Mix", "AWS", 2025, 128000, 128725, 725}})

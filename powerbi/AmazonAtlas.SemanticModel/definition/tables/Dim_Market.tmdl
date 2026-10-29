@@ -1,0 +1,102 @@
+table Dim_Market
+	lineageTag: 7e0e6771-849b-43fa-a8fb-eabc3552fd89
+
+	measure Markets = COALESCE ( COUNTROWS ( Dim_Market ), 0 )
+		formatString: #,0
+		displayFolder: 07 Footprint
+		lineageTag: e61a7de7-66ff-4c62-ad84-03ef0afd5ca9
+
+	measure 'Tier 1 markets' = COALESCE ( CALCULATE ( COUNTROWS ( Dim_Market ), Dim_Market[Tier] = 1 ), 0 )
+		formatString: #,0
+		displayFolder: 07 Footprint
+		lineageTag: 679daff8-20e6-4167-aee9-67a4700203b5
+
+	measure 'Tier 2 markets' = COALESCE ( CALCULATE ( COUNTROWS ( Dim_Market ), Dim_Market[Tier] = 2 ), 0 )
+		formatString: #,0
+		displayFolder: 07 Footprint
+		lineageTag: a7a3f41f-685f-4920-a56e-9830304adadb
+
+	measure 'Tier 3 markets' = COALESCE ( CALCULATE ( COUNTROWS ( Dim_Market ), Dim_Market[Tier] = 3 ), 0 )
+		formatString: #,0
+		displayFolder: 07 Footprint
+		lineageTag: b9ae7f14-7787-43cd-acbf-1f39b99f2cc9
+
+	measure 'Regions covered' = COALESCE ( DISTINCTCOUNT ( Dim_Market[Region] ), 0 )
+		formatString: #,0
+		displayFolder: 07 Footprint
+		lineageTag: dc991257-2823-4170-ae09-0ea971ad5cac
+
+	measure 'Market revenue (avg)' = COALESCE ( DIVIDE ( [Latest net sales], COUNTROWS ( ALL ( Dim_Market ) ) ), 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 07 Footprint
+		lineageTag: 7c1cb124-24a0-429c-a069-bc1242868bea
+
+	measure 'Lat point' = COALESCE ( MAX ( Dim_Market[Latitude] ), 0 )
+		formatString: 0.0000
+		displayFolder: 07 Footprint
+		isHidden
+		lineageTag: 8a38b2f9-baba-48c9-aead-b8881d596217
+
+	measure 'Lon point' = COALESCE ( MAX ( Dim_Market[Longitude] ), 0 )
+		formatString: 0.0000
+		displayFolder: 07 Footprint
+		isHidden
+		lineageTag: a1703ace-224e-47ec-a49c-5700197fb728
+
+	column Country
+		dataType: string
+		lineageTag: f244eda3-7bbc-4d57-aedb-ca563dc658af
+		sourceColumn: [Country]
+
+	column Region
+		dataType: string
+		lineageTag: d8a8fa1c-aa72-4e9f-a6ea-184e575cb19b
+		sourceColumn: [Region]
+
+	column Marketplace
+		dataType: string
+		lineageTag: dc13eff9-63e8-4c8e-a8dc-34ff61f64f5c
+		sourceColumn: [Marketplace]
+
+	column Code
+		dataType: string
+		summarizeBy: none
+		lineageTag: 66847f1e-a709-49bb-a707-665d2262041f
+		sourceColumn: [Code]
+
+	column Latitude
+		dataType: double
+		formatString: 0.0000
+		summarizeBy: none
+		dataCategory: Latitude
+		lineageTag: f4705953-a4f0-4caf-a7b8-20b345e1bc18
+		sourceColumn: [Latitude]
+
+	column Longitude
+		dataType: double
+		formatString: 0.0000
+		summarizeBy: none
+		dataCategory: Longitude
+		lineageTag: c8d95ac0-a468-4090-a211-eaf2ec28aa6c
+		sourceColumn: [Longitude]
+
+	column Tier
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		lineageTag: 376d3e8d-535b-4103-a443-004845a08250
+		sourceColumn: [Tier]
+
+	column Business
+		dataType: string
+		lineageTag: 372cb945-9ab4-49b1-a0b6-688c110ece53
+		sourceColumn: [Business]
+
+	column 'Presence type'
+		dataType: string
+		lineageTag: ab7af7ef-dc41-4a25-a33a-0d6ef02c5e8d
+		sourceColumn: [Presence type]
+
+	partition Dim_Market = calculated
+		mode: import
+		source = DATATABLE("Country", STRING, "Region", STRING, "Marketplace", STRING, "Code", STRING, "Latitude", DOUBLE, "Longitude", DOUBLE, "Tier", INTEGER, "Business", STRING, "Presence type", STRING, {{"United States", "North America", "Amazon.com", "US", 37.0902, -95.7129, 1, "Yes", "Market presence"}, {"Germany", "Europe", "Amazon.de", "DE", 51.1657, 10.4515, 1, "Yes", "Market presence"}, {"United Kingdom", "Europe", "Amazon.co.uk", "GB", 55.3781, -3.436, 1, "Yes", "Market presence"}, {"Japan", "Asia-Pacific", "Amazon.co.jp", "JP", 36.2048, 138.2529, 1, "Yes", "Market presence"}, {"India", "Asia-Pacific", "Amazon.in", "IN", 20.5937, 78.9629, 1, "Yes", "Market presence"}, {"Canada", "North America", "Amazon.ca", "CA", 56.1304, -106.3468, 1, "Yes", "Market presence"}, {"France", "Europe", "Amazon.fr", "FR", 46.2276, 2.2137, 2, "Yes", "Market presence"}, {"Italy", "Europe", "Amazon.it", "IT", 41.8719, 12.5674, 2, "Yes", "Market presence"}, {"Spain", "Europe", "Amazon.es", "ES", 40.4637, -3.7492, 2, "Yes", "Market presence"}, {"Australia", "Asia-Pacific", "Amazon.com.au", "AU", -25.2744, 133.7751, 2, "Yes", "Market presence"}, {"Mexico", "North America", "Amazon.com.mx", "MX", 23.6345, -102.5528, 2, "Yes", "Market presence"}, {"Brazil", "Latin America", "Amazon.com.br", "BR", -14.235, -51.9253, 2, "No", "Marketplace presence"}, {"United Arab Emirates", "Middle East", "Amazon.ae", "AE", 23.4241, 53.8478, 2, "Yes", "Marketplace presence"}, {"Saudi Arabia", "Middle East", "Amazon.sa", "SA", 23.8859, 45.0792, 2, "No", "Marketplace presence"}, {"Egypt", "Middle East", "Amazon.eg", "EG", 26.8206, 30.8025, 3, "No", "Marketplace presence"}})

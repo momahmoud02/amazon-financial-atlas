@@ -1,0 +1,43 @@
+table Dim_Stream
+	lineageTag: f246b6bd-d0e5-479b-abb0-8453e7004f88
+
+	measure 'Stream revenue' = COALESCE ( SUM ( Fact_RevenueMix[Revenue] ) / 1000, 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 06 Revenue mix
+		lineageTag: adf51730-8893-4546-a69a-5fc65b4d229e
+
+	measure 'Stream revenue latest' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Stream revenue], Dim_Year[Year] = y ) + 0
+		formatString: $#,0.0"B"
+		displayFolder: 06 Revenue mix
+		lineageTag: c51c8671-aaae-4651-af96-f3d86e75dc27
+
+	measure 'Stream share' = COALESCE ( DIVIDE ( [Stream revenue], CALCULATE ( [Stream revenue], REMOVEFILTERS ( Dim_Stream ) ) ), 0 )
+		formatString: 0.0%
+		displayFolder: 06 Revenue mix
+		lineageTag: e685ea58-19f7-42cc-a9dd-5f8eb7734b7d
+
+	measure 'Stream growth' = VAR y = MAX ( Dim_Year[Year] ) VAR cur = CALCULATE ( [Stream revenue], Dim_Year[Year] = y ) VAR prev = CALCULATE ( [Stream revenue], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) RETURN DIVIDE ( cur - prev, prev ) + 0
+		formatString: 0.0%
+		displayFolder: 06 Revenue mix
+		lineageTag: ce864003-1cdd-4049-ad27-126374d03d74
+
+	measure 'Stream share latest' = COALESCE ( DIVIDE ( [Stream revenue latest], CALCULATE ( [Stream revenue latest], REMOVEFILTERS ( Dim_Stream ) ) ), 0 )
+		formatString: 0.0%
+		displayFolder: 06 Revenue mix
+		lineageTag: 311b8e7e-b6e9-4899-a92e-3c210ea445bc
+
+	column Stream
+		dataType: string
+		lineageTag: ec697662-8ea2-4173-a94c-3112a464a949
+		sourceColumn: [Stream]
+
+	column 'Sort order'
+		dataType: int64
+		summarizeBy: none
+		isHidden
+		lineageTag: 006bdcaf-75c4-499a-a4c7-80704e7749c3
+		sourceColumn: [Sort order]
+
+	partition Dim_Stream = calculated
+		mode: import
+		source = DATATABLE("Stream", STRING, "Sort order", INTEGER, {{"Online stores", 1}, {"Physical stores", 2}, {"Third-party seller services", 3}, {"Advertising services", 4}, {"Subscription services", 5}, {"AWS", 6}, {"Other", 7}})

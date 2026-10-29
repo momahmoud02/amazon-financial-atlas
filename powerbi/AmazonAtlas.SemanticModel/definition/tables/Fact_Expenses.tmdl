@@ -1,0 +1,25 @@
+table Fact_Expenses
+	lineageTag: f50628a5-61b5-41b5-a4eb-e9f098221270
+
+	column Year
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		lineageTag: acc8c546-073c-4132-aa36-baf449d46c91
+		sourceColumn: [Year]
+
+	column LineItem
+		dataType: string
+		lineageTag: 5281124b-2966-4970-a37a-04b0cbf5ddc9
+		sourceColumn: [LineItem]
+
+	column Amount
+		dataType: int64
+		formatString: $#,0.0"M"
+		isHidden
+		lineageTag: 83c5e414-0c3b-497a-a712-38b0f1df5e35
+		sourceColumn: [Amount]
+
+	partition Fact_Expenses = calculated
+		mode: import
+		source = DATATABLE("Year", INTEGER, "LineItem", STRING, "Amount", INTEGER, {{2021, "Cost of sales", 272344}, {2021, "Fulfillment", 75111}, {2021, "Technology & content", 56052}, {2021, "Marketing", 32551}, {2021, "General & admin", 8823}, {2021, "Other operating", 62}, {2022, "Cost of sales", 288831}, {2022, "Fulfillment", 84299}, {2022, "Technology & content", 73213}, {2022, "Marketing", 42238}, {2022, "General & admin", 11891}, {2022, "Other operating", 1263}, {2023, "Cost of sales", 304739}, {2023, "Fulfillment", 90619}, {2023, "Technology & content", 85622}, {2023, "Marketing", 44370}, {2023, "General & admin", 11816}, {2023, "Other operating", 767}, {2024, "Cost of sales", 326288}, {2024, "Fulfillment", 98505}, {2024, "Technology & content", 88544}, {2024, "Marketing", 43907}, {2024, "General & admin", 11359}, {2024, "Other operating", 763}, {2025, "Cost of sales", 356414}, {2025, "Fulfillment", 109074}, {2025, "Technology & content", 108521}, {2025, "Marketing", 47129}, {2025, "General & admin", 11172}, {2025, "Other operating", 4639}})

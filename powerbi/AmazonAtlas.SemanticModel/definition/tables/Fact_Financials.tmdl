@@ -1,0 +1,561 @@
+table Fact_Financials
+	lineageTag: 0da88449-53f5-49ef-a560-3c0ffad862a0
+
+	measure 'Gross profit PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Gross profit], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: $#,0.0"B";-$#,0.0"B";"—"
+		displayFolder: 12 Prior year
+		lineageTag: 1b4b3a1c-297c-4f65-abe6-af980ecfca38
+
+	measure 'Gross margin PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Gross margin], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: 0.0%;-0.0%;"—"
+		displayFolder: 12 Prior year
+		lineageTag: 99e42b91-a6e9-42c1-a032-c42b7e185547
+
+	measure 'Cash & equivalents PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Cash & equivalents], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: $#,0.0"B";-$#,0.0"B";"—"
+		displayFolder: 12 Prior year
+		lineageTag: 0597595b-3026-4d73-ad19-a2965df802ca
+
+	measure 'Total liabilities PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Total liabilities], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: $#,0.0"B";-$#,0.0"B";"—"
+		displayFolder: 12 Prior year
+		lineageTag: c7b35167-0c4b-4110-ad30-4525299ce5cb
+
+	measure 'Return on assets PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Return on assets], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: 0.0%;-0.0%;"—"
+		displayFolder: 12 Prior year
+		lineageTag: 872ac833-ad93-40c6-a7ff-33424b8364be
+
+	measure 'Liabilities to assets PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Liabilities to assets], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: 0.0%;-0.0%;"—"
+		displayFolder: 12 Prior year
+		lineageTag: 135ae35b-058f-4ddf-a58b-d4ae0ed17d35
+
+	measure 'Debt to equity PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Debt to equity], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: 0.00;-0.00;"—"
+		displayFolder: 12 Prior year
+		lineageTag: 9f457bab-638e-43de-aa79-96a8647f179a
+
+	measure 'Capex growth' = VAR p = [Capital expenditure PY] RETURN IF ( OR ( ISBLANK ( p ), p <= 0 ), 0, DIVIDE ( [Latest capital expenditure] - p, ABS ( p ) ) ) + 0
+		formatString: +0.0%;-0.0%;"n/m"
+		displayFolder: 13 Delta chip
+		lineageTag: b9b8633b-cb57-4cc5-ac1a-7fc23a617d55
+
+	measure 'Net sales delta' = VAR y = MAX ( Dim_Year[Year] ) VAR c = CALCULATE ( [Net sales], Dim_Year[Year] = y ) VAR p = [Net sales PY] RETURN IF ( OR ( ISBLANK ( p ), p <= 0 ), 0, DIVIDE ( c - p, ABS ( p ) ) ) + 0
+		formatString: +0.0%;-0.0%;"n/m"
+		displayFolder: 13 Delta chip
+		lineageTag: b12ef411-d797-4efc-a02e-b7bbeb3a659e
+
+	measure 'Gross profit delta' = VAR y = MAX ( Dim_Year[Year] ) VAR c = CALCULATE ( [Gross profit], Dim_Year[Year] = y ) VAR p = [Gross profit PY] RETURN IF ( OR ( ISBLANK ( p ), p <= 0 ), 0, DIVIDE ( c - p, ABS ( p ) ) ) + 0
+		formatString: +0.0%;-0.0%;"n/m"
+		displayFolder: 13 Delta chip
+		lineageTag: 4b51fcd2-c552-4cbb-a9d5-06ca869955fd
+
+	measure 'Gross margin delta' = VAR y = MAX ( Dim_Year[Year] ) VAR c = CALCULATE ( [Gross margin], Dim_Year[Year] = y ) VAR p = [Gross margin PY] RETURN IF ( OR ( ISBLANK ( p ), ISBLANK ( c ) ), 0, ( c - p ) * 100 ) + 0
+		formatString: +0.0"pp";-0.0"pp";"flat"
+		displayFolder: 13 Delta chip
+		lineageTag: 13ebca9d-86a7-42df-a9c0-c1959b42169f
+
+	measure 'Operating income delta' = VAR y = MAX ( Dim_Year[Year] ) VAR c = CALCULATE ( [Operating income], Dim_Year[Year] = y ) VAR p = [Operating income PY] RETURN IF ( OR ( ISBLANK ( p ), p <= 0 ), 0, DIVIDE ( c - p, ABS ( p ) ) ) + 0
+		formatString: +0.0%;-0.0%;"n/m"
+		displayFolder: 13 Delta chip
+		lineageTag: 51ef9fd9-fd00-4737-a6d4-919ad9dbfbeb
+
+	measure 'Operating margin delta' = VAR y = MAX ( Dim_Year[Year] ) VAR c = CALCULATE ( [Operating margin], Dim_Year[Year] = y ) VAR p = [Operating margin PY] RETURN IF ( OR ( ISBLANK ( p ), ISBLANK ( c ) ), 0, ( c - p ) * 100 ) + 0
+		formatString: +0.0"pp";-0.0"pp";"flat"
+		displayFolder: 13 Delta chip
+		lineageTag: 3bbab21e-da85-49f9-a85d-3f16c5af6f06
+
+	measure 'Net income delta' = VAR y = MAX ( Dim_Year[Year] ) VAR c = CALCULATE ( [Net income], Dim_Year[Year] = y ) VAR p = [Net income PY] RETURN IF ( OR ( ISBLANK ( p ), p <= 0 ), 0, DIVIDE ( c - p, ABS ( p ) ) ) + 0
+		formatString: +0.0%;-0.0%;"n/m"
+		displayFolder: 13 Delta chip
+		lineageTag: 4d7a1a92-62ff-4570-a7c0-baaf4787e705
+
+	measure 'Net margin delta' = VAR y = MAX ( Dim_Year[Year] ) VAR c = CALCULATE ( [Net margin], Dim_Year[Year] = y ) VAR p = [Net margin PY] RETURN IF ( OR ( ISBLANK ( p ), ISBLANK ( c ) ), 0, ( c - p ) * 100 ) + 0
+		formatString: +0.0"pp";-0.0"pp";"flat"
+		displayFolder: 13 Delta chip
+		lineageTag: 5659bfdd-fa49-45f1-af40-100f86b5678e
+
+	measure 'Operating cash flow delta' = VAR y = MAX ( Dim_Year[Year] ) VAR c = CALCULATE ( [Operating cash flow], Dim_Year[Year] = y ) VAR p = [Operating cash flow PY] RETURN IF ( OR ( ISBLANK ( p ), p <= 0 ), 0, DIVIDE ( c - p, ABS ( p ) ) ) + 0
+		formatString: +0.0%;-0.0%;"n/m"
+		displayFolder: 13 Delta chip
+		lineageTag: 8fb0a7dc-9808-476a-a2e2-704be42db912
+
+	measure 'Free cash flow delta' = VAR y = MAX ( Dim_Year[Year] ) VAR c = CALCULATE ( [Free cash flow], Dim_Year[Year] = y ) VAR p = [Free cash flow PY] RETURN IF ( OR ( ISBLANK ( p ), p <= 0 ), 0, DIVIDE ( c - p, ABS ( p ) ) ) + 0
+		formatString: +0.0%;-0.0%;"n/m"
+		displayFolder: 13 Delta chip
+		lineageTag: e8b404bc-d035-4bc8-ad9d-bba0b0dd8837
+
+	measure 'FCF margin delta' = VAR y = MAX ( Dim_Year[Year] ) VAR c = CALCULATE ( [FCF margin], Dim_Year[Year] = y ) VAR p = [FCF margin PY] RETURN IF ( OR ( ISBLANK ( p ), ISBLANK ( c ) ), 0, ( c - p ) * 100 ) + 0
+		formatString: +0.0"pp";-0.0"pp";"flat"
+		displayFolder: 13 Delta chip
+		lineageTag: 347d96d2-cf69-4b40-a68d-3c2ea8a88cf0
+
+	measure 'Cash & equivalents delta' = VAR y = MAX ( Dim_Year[Year] ) VAR c = CALCULATE ( [Cash & equivalents], Dim_Year[Year] = y ) VAR p = [Cash & equivalents PY] RETURN IF ( OR ( ISBLANK ( p ), p <= 0 ), 0, DIVIDE ( c - p, ABS ( p ) ) ) + 0
+		formatString: +0.0%;-0.0%;"n/m"
+		displayFolder: 13 Delta chip
+		lineageTag: 10e8b840-c1d2-4fc7-ad85-b8ce979a33e5
+
+	measure 'Total assets delta' = VAR y = MAX ( Dim_Year[Year] ) VAR c = CALCULATE ( [Total assets], Dim_Year[Year] = y ) VAR p = [Total assets PY] RETURN IF ( OR ( ISBLANK ( p ), p <= 0 ), 0, DIVIDE ( c - p, ABS ( p ) ) ) + 0
+		formatString: +0.0%;-0.0%;"n/m"
+		displayFolder: 13 Delta chip
+		lineageTag: e4cafe83-5fd6-4032-a309-ab0a3b7701cc
+
+	measure 'Total liabilities delta' = VAR y = MAX ( Dim_Year[Year] ) VAR c = CALCULATE ( [Total liabilities], Dim_Year[Year] = y ) VAR p = [Total liabilities PY] RETURN IF ( OR ( ISBLANK ( p ), p <= 0 ), 0, DIVIDE ( c - p, ABS ( p ) ) ) + 0
+		formatString: +0.0%;-0.0%;"n/m"
+		displayFolder: 13 Delta chip
+		lineageTag: 45c573e9-0f31-406b-a91c-0aeadbe3c4fc
+
+	measure 'Total equity delta' = VAR y = MAX ( Dim_Year[Year] ) VAR c = CALCULATE ( [Total equity], Dim_Year[Year] = y ) VAR p = [Total equity PY] RETURN IF ( OR ( ISBLANK ( p ), p <= 0 ), 0, DIVIDE ( c - p, ABS ( p ) ) ) + 0
+		formatString: +0.0%;-0.0%;"n/m"
+		displayFolder: 13 Delta chip
+		lineageTag: e96bf8a8-0647-4f7e-a714-97150744e3f0
+
+	measure 'Current ratio delta' = VAR y = MAX ( Dim_Year[Year] ) VAR c = CALCULATE ( [Current ratio], Dim_Year[Year] = y ) VAR p = [Current ratio PY] RETURN IF ( OR ( ISBLANK ( p ), p <= 0 ), 0, DIVIDE ( c - p, ABS ( p ) ) ) + 0
+		formatString: +0.0%;-0.0%;"n/m"
+		displayFolder: 13 Delta chip
+		lineageTag: 4e42cdc1-67a1-4b04-a577-d0e1864812b9
+
+	measure 'Return on equity delta' = VAR y = MAX ( Dim_Year[Year] ) VAR c = CALCULATE ( [Return on equity], Dim_Year[Year] = y ) VAR p = [Return on equity PY] RETURN IF ( OR ( ISBLANK ( p ), ISBLANK ( c ) ), 0, ( c - p ) * 100 ) + 0
+		formatString: +0.0"pp";-0.0"pp";"flat"
+		displayFolder: 13 Delta chip
+		lineageTag: 4bd04314-a662-4244-a31b-f0234e06d3a9
+
+	measure 'Return on assets delta' = VAR y = MAX ( Dim_Year[Year] ) VAR c = CALCULATE ( [Return on assets], Dim_Year[Year] = y ) VAR p = [Return on assets PY] RETURN IF ( OR ( ISBLANK ( p ), ISBLANK ( c ) ), 0, ( c - p ) * 100 ) + 0
+		formatString: +0.0"pp";-0.0"pp";"flat"
+		displayFolder: 13 Delta chip
+		lineageTag: eec47d14-0f85-4223-ad93-803a76834237
+
+	measure 'Net sales' = COALESCE ( SUM ( Fact_Financials[Sales] ) / 1000, 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 02 P&L
+		lineageTag: d3c1a9b3-a828-470a-a950-adcb12a654da
+
+	measure 'Gross profit' = COALESCE ( ( SUM ( Fact_Financials[Sales] ) - SUM ( Fact_Financials[COGS] ) ) / 1000, 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 02 P&L
+		lineageTag: 9f0e3d3a-120d-4bea-a3f2-ef8ae88f41cb
+
+	measure 'Gross margin' = COALESCE ( DIVIDE ( [Gross profit], [Net sales] ), 0 )
+		formatString: 0.0%
+		displayFolder: 02 P&L
+		lineageTag: 99ea0c24-42ad-4d79-ac49-151f6b2770ce
+
+	measure 'Operating income' = COALESCE ( SUM ( Fact_Financials[OperatingIncome] ) / 1000, 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 02 P&L
+		lineageTag: e9cf88bf-760e-4478-a85a-590260b5821b
+
+	measure 'Operating margin' = COALESCE ( DIVIDE ( [Operating income], [Net sales] ), 0 )
+		formatString: 0.0%
+		displayFolder: 02 P&L
+		lineageTag: 5b6793f1-18c5-4dbc-a05d-97fe84087c3e
+
+	measure 'Net income' = COALESCE ( SUM ( Fact_Financials[NetIncome] ) / 1000, 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 02 P&L
+		lineageTag: 46f113ab-cf19-4c0e-a1ea-79401fbda8ad
+
+	measure 'Net margin' = COALESCE ( DIVIDE ( [Net income], [Net sales] ), 0 )
+		formatString: 0.0%
+		displayFolder: 02 P&L
+		lineageTag: b68ead42-a880-4937-a665-1fbeda345d8b
+
+	measure 'YoY growth' = VAR y = MAX ( Dim_Year[Year] ) VAR cur = CALCULATE ( [Net sales], Dim_Year[Year] = y ) VAR prev = CALCULATE ( [Net sales], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) RETURN DIVIDE ( cur - prev, prev ) + 0
+		formatString: 0.0%;-0.0%;"n/m"
+		displayFolder: 03 Growth
+		lineageTag: dc01fd52-b216-4171-ab9a-3ac909e318e9
+
+	measure 'Operating cash flow' = COALESCE ( SUM ( Fact_Financials[OCF] ) / 1000, 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 04 Cash
+		lineageTag: 8855a38e-1d03-4f47-a6cf-01b241b3c0f6
+
+	measure 'Capital expenditure' = COALESCE ( SUM ( Fact_Financials[Capex] ) / 1000, 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 04 Cash
+		lineageTag: beeb347e-9778-4512-a8ae-96865a549c14
+
+	measure 'Free cash flow' = COALESCE ( SUM ( Fact_Financials[FCF] ) / 1000, 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 04 Cash
+		lineageTag: 04c52596-b2ef-43c8-aad8-c84a9ff079fa
+
+	measure 'FCF margin' = COALESCE ( DIVIDE ( [Free cash flow], [Net sales] ), 0 )
+		formatString: 0.0%
+		displayFolder: 04 Cash
+		lineageTag: 1f357979-030b-40f5-a6c2-3628f25f45b0
+
+	measure 'Capex intensity' = COALESCE ( DIVIDE ( [Capital expenditure], [Net sales] ), 0 )
+		formatString: 0.0%
+		displayFolder: 04 Cash
+		lineageTag: 2cc3bc6c-7697-4fae-aa7f-6a4fa1772e26
+
+	measure 'Cash & equivalents' = COALESCE ( SUM ( Fact_Financials[Cash] ) / 1000, 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 05 Balance sheet
+		lineageTag: 12c15783-e669-45e4-a962-3cbf7aca6a80
+
+	measure 'Current assets' = COALESCE ( SUM ( Fact_Financials[CurrentAssets] ) / 1000, 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 05 Balance sheet
+		lineageTag: 5e9a8dd7-69d2-4d09-a3e3-e40d3881feaa
+
+	measure 'Current liabilities' = COALESCE ( SUM ( Fact_Financials[CurrentLiabilities] ) / 1000, 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 05 Balance sheet
+		lineageTag: b04ab7b2-2db8-4753-a67e-9d009274644b
+
+	measure 'Total assets' = COALESCE ( SUM ( Fact_Financials[TotalAssets] ) / 1000, 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 05 Balance sheet
+		lineageTag: 1127bd2d-9035-49ce-a5ad-fa8ed04f1bca
+
+	measure 'Total liabilities' = COALESCE ( SUM ( Fact_Financials[TotalLiabilities] ) / 1000, 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 05 Balance sheet
+		lineageTag: 4946b930-bb9c-4d1f-a012-8a2bd10ea110
+
+	measure 'Total equity' = COALESCE ( SUM ( Fact_Financials[Equity] ) / 1000, 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 05 Balance sheet
+		lineageTag: 45d9e3e8-263b-4ebd-a3ea-a12ec5e8c043
+
+	measure 'Long-term debt' = COALESCE ( SUM ( Fact_Financials[LongTermDebt] ) / 1000, 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 05 Balance sheet
+		lineageTag: 37c247a7-a9b7-494c-a47b-5b0793e957f3
+
+	measure 'Current ratio' = COALESCE ( DIVIDE ( SUM ( Fact_Financials[CurrentAssets] ), SUM ( Fact_Financials[CurrentLiabilities] ) ), 0 )
+		formatString: 0.00
+		displayFolder: 06 Ratios
+		lineageTag: 546dacb2-1131-4ee4-abbc-bde20a41b376
+
+	measure 'Liabilities to assets' = COALESCE ( DIVIDE ( [Total liabilities], [Total assets] ), 0 )
+		formatString: 0.0%
+		displayFolder: 06 Ratios
+		lineageTag: c2a93458-b79e-430d-adfe-1c2547afda55
+
+	measure 'Debt to equity' = COALESCE ( DIVIDE ( [Long-term debt], [Total equity] ), 0 )
+		formatString: 0.00
+		displayFolder: 06 Ratios
+		lineageTag: 5d37d429-f1a2-4dad-a88e-066f53c5075b
+
+	measure 'Return on equity' = COALESCE ( DIVIDE ( [Net income], [Total equity] ), 0 )
+		formatString: 0.0%
+		displayFolder: 06 Ratios
+		lineageTag: 1f039c42-ec07-46a2-a38f-faa18909cf9e
+
+	measure 'Return on assets' = COALESCE ( DIVIDE ( [Net income], [Total assets] ), 0 )
+		formatString: 0.0%
+		displayFolder: 06 Ratios
+		lineageTag: c66b7131-31af-4b1d-a7c2-de190c6afb4d
+
+	measure 'Asset turnover' = COALESCE ( DIVIDE ( [Net sales], [Total assets] ), 0 )
+		formatString: 0.00
+		displayFolder: 06 Ratios
+		lineageTag: 6c3af0df-eb29-4690-ac0d-9976f55fc21d
+
+	measure 'Equity multiplier' = COALESCE ( DIVIDE ( [Total assets], [Total equity] ), 0 )
+		formatString: 0.00
+		displayFolder: 06 Ratios
+		lineageTag: f1edb5c9-2725-4d38-abee-8188184c9f33
+
+	measure 'Average ROE' = COALESCE ( AVERAGEX ( VALUES ( Dim_Year[Year] ), [Return on equity] ), 0 )
+		formatString: 0.0%
+		displayFolder: 06 Ratios
+		lineageTag: a788c191-79ea-4269-a7bd-d316cfbfd100
+
+	measure 'Latest net sales' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Net sales], Dim_Year[Year] = y ) + 0
+		formatString: $#,0.0"B"
+		displayFolder: 09 Latest year
+		lineageTag: c2f02759-efec-41de-a5b3-a11974452a1a
+
+	measure 'Latest operating income' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Operating income], Dim_Year[Year] = y ) + 0
+		formatString: $#,0.0"B"
+		displayFolder: 09 Latest year
+		lineageTag: 2bd0c62b-95bc-45cc-a20e-ea2510b08aec
+
+	measure 'Latest operating margin' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Operating margin], Dim_Year[Year] = y ) + 0
+		formatString: 0.0%
+		displayFolder: 09 Latest year
+		lineageTag: 63ceba6f-6c8f-4949-ad67-49d12dbf5617
+
+	measure 'Latest net income' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Net income], Dim_Year[Year] = y ) + 0
+		formatString: $#,0.0"B"
+		displayFolder: 09 Latest year
+		lineageTag: 943ca1e7-f98b-46ea-a786-457548088ab6
+
+	measure 'Latest net margin' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Net margin], Dim_Year[Year] = y ) + 0
+		formatString: 0.0%
+		displayFolder: 09 Latest year
+		lineageTag: f54848c3-0014-4d98-aebf-390afffafcd2
+
+	measure 'Latest free cash flow' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Free cash flow], Dim_Year[Year] = y ) + 0
+		formatString: $#,0.0"B"
+		displayFolder: 09 Latest year
+		lineageTag: 3d15da3e-aa36-48f3-aa42-9153b20b5bf5
+
+	measure 'Latest capital expenditure' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Capital expenditure], Dim_Year[Year] = y ) + 0
+		formatString: $#,0.0"B"
+		displayFolder: 09 Latest year
+		lineageTag: fff3a8d9-5c79-4acb-a544-d9cfc93be1aa
+
+	measure 'Latest FCF margin' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [FCF margin], Dim_Year[Year] = y ) + 0
+		formatString: 0.0%
+		displayFolder: 09 Latest year
+		lineageTag: 1ff7b749-6c09-4bd7-a6e9-19792d6f379e
+
+	measure 'Latest gross margin' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Gross margin], Dim_Year[Year] = y ) + 0
+		formatString: 0.0%
+		displayFolder: 09 Latest year
+		lineageTag: a3495515-e724-4ff6-a2de-5b541bfd99c9
+
+	measure 'Latest operating cash flow' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Operating cash flow], Dim_Year[Year] = y ) + 0
+		formatString: $#,0.0"B"
+		displayFolder: 09 Latest year
+		lineageTag: a440c825-e7c3-490d-a66a-25f8e4e30ce4
+
+	measure 'Latest return on equity' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Return on equity], Dim_Year[Year] = y ) + 0
+		formatString: 0.0%
+		displayFolder: 09 Latest year
+		lineageTag: 4b7e49e8-ea36-435e-ada3-9e6d5db13843
+
+	measure 'Latest total assets' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Total assets], Dim_Year[Year] = y ) + 0
+		formatString: $#,0.0"B"
+		displayFolder: 09 Latest year
+		lineageTag: d751dc02-6924-496b-a771-3c9b7d4abb2e
+
+	measure 'Latest total equity' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Total equity], Dim_Year[Year] = y ) + 0
+		formatString: $#,0.0"B"
+		displayFolder: 09 Latest year
+		lineageTag: 43442971-6c6d-4108-a4c4-b04e35902820
+
+	measure 'Latest gross profit' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Gross profit], Dim_Year[Year] = y ) + 0
+		formatString: $#,0.0"B"
+		displayFolder: 09 Latest year
+		lineageTag: 6b66b4dd-3430-4d5b-ae94-7624f26bcef0
+
+	measure 'Latest cash & equivalents' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Cash & equivalents], Dim_Year[Year] = y ) + 0
+		formatString: $#,0.0"B"
+		displayFolder: 09 Latest year
+		lineageTag: 7325e786-bb00-486a-acc1-d873cdb9e43a
+
+	measure 'Latest total liabilities' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Total liabilities], Dim_Year[Year] = y ) + 0
+		formatString: $#,0.0"B"
+		displayFolder: 09 Latest year
+		lineageTag: ffddaa7a-335f-4ece-ad09-567d05f113e7
+
+	measure 'Latest current ratio' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Current ratio], Dim_Year[Year] = y ) + 0
+		formatString: 0.00
+		displayFolder: 09 Latest year
+		lineageTag: 85d4f6f7-f362-47c4-a0b4-67b156415d78
+
+	measure 'Net sales PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Net sales], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: $#,0.0"B";-$#,0.0"B";"—"
+		displayFolder: 12 Prior year
+		lineageTag: 3b68ed9e-903e-42aa-ae61-0bc71a9be721
+
+	measure 'Operating income PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Operating income], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: $#,0.0"B";-$#,0.0"B";"—"
+		displayFolder: 12 Prior year
+		lineageTag: 51fc9d42-5467-4d0a-a229-a86900e28ff1
+
+	measure 'Operating margin PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Operating margin], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: 0.0%;-0.0%;"—"
+		displayFolder: 12 Prior year
+		lineageTag: 6f198fcb-c4d9-43fd-aea9-4610b12b2ab3
+
+	measure 'Net income PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Net income], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: $#,0.0"B";-$#,0.0"B";"—"
+		displayFolder: 12 Prior year
+		lineageTag: 55072d88-bb1b-4c7b-afd1-3266f27f353e
+
+	measure 'Net margin PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Net margin], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: 0.0%;-0.0%;"—"
+		displayFolder: 12 Prior year
+		lineageTag: f8dd4dfd-5fe3-46a4-ae07-fcf077c6e1e9
+
+	measure 'Operating cash flow PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Operating cash flow], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: $#,0.0"B";-$#,0.0"B";"—"
+		displayFolder: 12 Prior year
+		lineageTag: dced2daa-2185-4843-a08f-4873b4d0237d
+
+	measure 'Capital expenditure PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Capital expenditure], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: $#,0.0"B";-$#,0.0"B";"—"
+		displayFolder: 12 Prior year
+		lineageTag: aa872941-bbd8-4882-ae19-26276b4ff1cb
+
+	measure 'Free cash flow PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Free cash flow], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: $#,0.0"B";-$#,0.0"B";"—"
+		displayFolder: 12 Prior year
+		lineageTag: 1f3e0195-1941-48b4-a262-39c563ebcd37
+
+	measure 'FCF margin PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [FCF margin], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: 0.0%;-0.0%;"—"
+		displayFolder: 12 Prior year
+		lineageTag: 3951a828-801f-46d0-a893-e6062aa5ef89
+
+	measure 'Total assets PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Total assets], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: $#,0.0"B";-$#,0.0"B";"—"
+		displayFolder: 12 Prior year
+		lineageTag: f8ffdbf5-6984-4411-ae38-cac94c60998f
+
+	measure 'Total equity PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Total equity], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: $#,0.0"B";-$#,0.0"B";"—"
+		displayFolder: 12 Prior year
+		lineageTag: 0ea4146b-f791-4c91-a374-a5c8ee38fdf3
+
+	measure 'Current ratio PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Current ratio], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: 0.00;-0.00;"—"
+		displayFolder: 12 Prior year
+		lineageTag: 61321d80-55a1-497c-ace3-98793e7663b1
+
+	measure 'Return on equity PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Return on equity], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: 0.0%;-0.0%;"—"
+		displayFolder: 12 Prior year
+		lineageTag: dee76506-9fbf-4f75-a785-d77432475690
+
+	column Year
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		lineageTag: 58e56d17-cac3-4e71-ab8b-629b5f34a3ee
+		sourceColumn: [Year]
+
+	column Sales
+		dataType: int64
+		formatString: $#,0.0"M"
+		lineageTag: 49373c28-662e-43af-a395-0dd453d7bed1
+		sourceColumn: [Sales]
+
+	column COGS
+		dataType: int64
+		formatString: $#,0.0"M"
+		lineageTag: cc40edc3-7c72-4267-a1fa-b3b73350cbde
+		sourceColumn: [COGS]
+
+	column Fulfillment
+		dataType: int64
+		formatString: $#,0.0"M"
+		lineageTag: 54fe22f4-e1e7-4e3e-a66f-2c22711246b1
+		sourceColumn: [Fulfillment]
+
+	column Technology
+		dataType: int64
+		formatString: $#,0.0"M"
+		lineageTag: 681f072e-ad89-4743-ac8a-9a71b197f0cb
+		sourceColumn: [Technology]
+
+	column Marketing
+		dataType: int64
+		formatString: $#,0.0"M"
+		lineageTag: cbb03c38-af5c-4157-adf8-de26c63800e6
+		sourceColumn: [Marketing]
+
+	column GA
+		dataType: int64
+		formatString: $#,0.0"M"
+		lineageTag: 960b083c-da37-4428-a86b-ba2425f73732
+		sourceColumn: [GA]
+
+	column OtherOp
+		dataType: int64
+		formatString: $#,0.0"M"
+		lineageTag: 7a73f07d-b245-49cc-a843-51e09223813f
+		sourceColumn: [OtherOp]
+
+	column OperatingIncome
+		dataType: int64
+		formatString: $#,0.0"M"
+		isHidden
+		lineageTag: cba74b79-2c8d-4e28-a41a-a8c963767f5e
+		sourceColumn: [OperatingIncome]
+
+	column NetIncome
+		dataType: int64
+		formatString: $#,0.0"M"
+		isHidden
+		lineageTag: db6e90bb-9d2c-4fc3-a1f9-8b56ec41f72e
+		sourceColumn: [NetIncome]
+
+	column OCF
+		dataType: int64
+		formatString: $#,0.0"M"
+		isHidden
+		lineageTag: 2d24307b-2a65-46c9-ad99-d91da0547001
+		sourceColumn: [OCF]
+
+	column Capex
+		dataType: int64
+		formatString: $#,0.0"M"
+		isHidden
+		lineageTag: d2c0e437-c2f6-4f42-ab83-781aac12a7b3
+		sourceColumn: [Capex]
+
+	column Proceeds
+		dataType: int64
+		formatString: $#,0.0"M"
+		isHidden
+		lineageTag: b8d3cafa-a340-4fb0-a0ce-ca298692f454
+		sourceColumn: [Proceeds]
+
+	column FCF
+		dataType: int64
+		formatString: $#,0.0"M"
+		isHidden
+		lineageTag: c3a1805a-f7b3-4345-ad13-b31d5b45a227
+		sourceColumn: [FCF]
+
+	column Cash
+		dataType: int64
+		formatString: $#,0.0"M"
+		isHidden
+		lineageTag: 4a453fb1-c1a8-43d6-a0d4-b926f855750a
+		sourceColumn: [Cash]
+
+	column CurrentAssets
+		dataType: int64
+		formatString: $#,0.0"M"
+		isHidden
+		lineageTag: fb4e3cf8-9e7f-4e71-ad35-b0b5709eccd1
+		sourceColumn: [CurrentAssets]
+
+	column TotalAssets
+		dataType: int64
+		formatString: $#,0.0"M"
+		isHidden
+		lineageTag: 23a5f81f-edce-4138-a9dc-9208083a80a1
+		sourceColumn: [TotalAssets]
+
+	column CurrentLiabilities
+		dataType: int64
+		formatString: $#,0.0"M"
+		isHidden
+		lineageTag: 4fefd1c9-11a1-40a6-aa97-6c665d5d849e
+		sourceColumn: [CurrentLiabilities]
+
+	column LongTermDebt
+		dataType: int64
+		formatString: $#,0.0"M"
+		isHidden
+		lineageTag: 83c0994c-4732-47f4-ad74-82cec433438e
+		sourceColumn: [LongTermDebt]
+
+	column TotalLiabilities
+		dataType: int64
+		formatString: $#,0.0"M"
+		isHidden
+		lineageTag: 94e2ba73-fd5b-4bb2-ab5f-e58c2bc5cfde
+		sourceColumn: [TotalLiabilities]
+
+	column Equity
+		dataType: int64
+		formatString: $#,0.0"M"
+		isHidden
+		lineageTag: a91aa320-779c-4b4d-a547-2032b1b47d9b
+		sourceColumn: [Equity]
+
+	partition Fact_Financials = calculated
+		mode: import
+		source = DATATABLE("Year", INTEGER, "Sales", INTEGER, "COGS", INTEGER, "Fulfillment", INTEGER, "Technology", INTEGER, "Marketing", INTEGER, "GA", INTEGER, "OtherOp", INTEGER, "OperatingIncome", INTEGER, "NetIncome", INTEGER, "OCF", INTEGER, "Capex", INTEGER, "Proceeds", INTEGER, "FCF", INTEGER, "Cash", INTEGER, "CurrentAssets", INTEGER, "TotalAssets", INTEGER, "CurrentLiabilities", INTEGER, "LongTermDebt", INTEGER, "TotalLiabilities", INTEGER, "Equity", INTEGER, {{2021, 469822, 272344, 75111, 56052, 32551, 8823, 62, 24879, 33364, 46327, 61053, 5657, -9069, 96282, 161580, 420549, 142266, 48744, 282304, 138245}, {2022, 513983, 288831, 84299, 73213, 42238, 11891, 1263, 12248, -2722, 46752, 63645, 5324, -11569, 70026, 146791, 462675, 155393, 67150, 316632, 146043}, {2023, 574785, 304739, 90619, 85622, 44370, 11816, 767, 36852, 30425, 84946, 52729, 4596, 36813, 86780, 172351, 527854, 164917, 58314, 325979, 201875}, {2024, 637959, 326288, 98505, 88544, 43907, 11359, 763, 68593, 59248, 115877, 82999, 5341, 38219, 88783, 190867, 624894, 179431, 52623, 338924, 285970}, {2025, 716924, 356414, 109074, 108521, 47129, 11172, 4639, 79975, 77670, 139514, 131819, 3499, 11194, 123029, 229083, 818042, 218005, 65648, 406977, 411065}})

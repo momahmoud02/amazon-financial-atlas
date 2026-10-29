@@ -1,0 +1,23 @@
+table Dim_CashLine
+	lineageTag: e9b6eab8-f3e4-465e-afcb-3388a3b0e74c
+
+	measure 'Cash line value' = COALESCE ( SWITCH ( SELECTEDVALUE ( Dim_CashLine[Cash line] ), "Operating cash flow", [Operating cash flow], "Capital expenditure", [Capital expenditure], "Free cash flow", [Free cash flow] ), 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 04 Cash
+		lineageTag: 4b73fd9d-4c39-4209-a8ab-a15affbe327f
+
+	column 'Cash line'
+		dataType: string
+		lineageTag: a7899ff7-6fc8-4246-a1b3-b81dad3fcfdf
+		sourceColumn: [Cash line]
+
+	column 'Sort order'
+		dataType: int64
+		summarizeBy: none
+		isHidden
+		lineageTag: a8279923-6f47-42c1-a70c-20f0249cde6c
+		sourceColumn: [Sort order]
+
+	partition Dim_CashLine = calculated
+		mode: import
+		source = DATATABLE("Cash line", STRING, "Sort order", INTEGER, {{"Operating cash flow", 1}, {"Capital expenditure", 2}, {"Free cash flow", 3}})

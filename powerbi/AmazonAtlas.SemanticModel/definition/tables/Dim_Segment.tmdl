@@ -1,0 +1,108 @@
+table Dim_Segment
+	lineageTag: 94ff3adf-90d9-43d5-a199-d35fca805408
+
+	measure 'North America revenue PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [North America revenue], REMOVEFILTERS ( Dim_Year ), Dim_Year[Year] = y - 1 ) + 0
+		formatString: $#,0.0"B";-$#,0.0"B";"—"
+		displayFolder: 12 Prior year
+		lineageTag: 349ca52d-fe13-423c-a191-e50ec5ebb0fe
+
+	measure 'AWS revenue delta' = VAR y = MAX ( Dim_Year[Year] ) VAR c = CALCULATE ( [AWS revenue latest], Dim_Year[Year] = y ) VAR p = [AWS revenue PY] RETURN IF ( OR ( ISBLANK ( p ), p <= 0 ), 0, DIVIDE ( c - p, ABS ( p ) ) ) + 0
+		formatString: +0.0%;-0.0%;"n/m"
+		displayFolder: 13 Delta chip
+		lineageTag: c25c4c31-a62e-4e03-a04a-29e7391b3bd6
+
+	measure 'International revenue delta' = VAR y = MAX ( Dim_Year[Year] ) VAR c = CALCULATE ( [International revenue latest], Dim_Year[Year] = y ) VAR p = [International revenue PY] RETURN IF ( OR ( ISBLANK ( p ), p <= 0 ), 0, DIVIDE ( c - p, ABS ( p ) ) ) + 0
+		formatString: +0.0%;-0.0%;"n/m"
+		displayFolder: 13 Delta chip
+		lineageTag: 7e933e07-a2af-4033-a720-0d760e5be8ca
+
+	measure 'North America revenue delta' = VAR y = MAX ( Dim_Year[Year] ) VAR c = CALCULATE ( [North America revenue latest], Dim_Year[Year] = y ) VAR p = [North America revenue PY] RETURN IF ( OR ( ISBLANK ( p ), p <= 0 ), 0, DIVIDE ( c - p, ABS ( p ) ) ) + 0
+		formatString: +0.0%;-0.0%;"n/m"
+		displayFolder: 13 Delta chip
+		lineageTag: cd441c75-c959-4a72-ad6a-cc6ddd5bd9cb
+
+	measure 'Segment revenue' = COALESCE ( SUM ( Fact_Segments[Revenue] ) / 1000, 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 05 Segments
+		lineageTag: 8aefe9ee-fcbb-4a11-a970-d3cf1fbc6856
+
+	measure 'Segment revenue latest' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Segment revenue], Dim_Year[Year] = y ) + 0
+		formatString: $#,0.0"B"
+		displayFolder: 05 Segments
+		lineageTag: 08c32aab-7854-407f-a061-2ce488ddaa4e
+
+	measure 'Segment operating income latest' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Segment operating income], Dim_Year[Year] = y ) + 0
+		formatString: $#,0.0"B"
+		displayFolder: 05 Segments
+		lineageTag: 60ccb791-6409-433a-ae35-649c4adb23d2
+
+	measure 'Segment operating income' = COALESCE ( SUM ( Fact_Segments[Operating income] ) / 1000, 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 05 Segments
+		lineageTag: 45fb3bb9-29c3-4697-ac4f-f3f2d0053847
+
+	measure 'Segment margin' = COALESCE ( DIVIDE ( [Segment operating income], [Segment revenue] ), 0 )
+		formatString: 0.0%
+		displayFolder: 05 Segments
+		lineageTag: d0c9935a-76ca-47c2-a01d-70c181fe3a72
+
+	measure 'Segment revenue share' = COALESCE ( DIVIDE ( [Segment revenue], CALCULATE ( [Segment revenue], REMOVEFILTERS ( Dim_Segment ) ) ), 0 )
+		formatString: 0.0%
+		displayFolder: 05 Segments
+		lineageTag: b21eddbe-e9ee-44c2-a308-207664068ca2
+
+	measure 'AWS revenue latest' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Segment revenue], REMOVEFILTERS ( Dim_Segment ), Dim_Segment[Segment] = "AWS", Dim_Year[Year] = y ) + 0
+		formatString: $#,0.0"B"
+		displayFolder: 05 Segments
+		lineageTag: 96ce58c5-f9b0-4cb1-aa1c-92650b7b41bd
+
+	measure 'AWS revenue' = COALESCE ( CALCULATE ( [Segment revenue], REMOVEFILTERS ( Dim_Segment ), Dim_Segment[Segment] = "AWS" ), 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 05 Segments
+		lineageTag: 6c707c58-2520-498c-a5d5-e33c304195f7
+
+	measure 'International revenue' = COALESCE ( CALCULATE ( [Segment revenue], REMOVEFILTERS ( Dim_Segment ), Dim_Segment[Segment] = "International" ), 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 05 Segments
+		lineageTag: 81702b06-9ebf-470c-abf5-bf9658fc066e
+
+	measure 'North America revenue' = COALESCE ( CALCULATE ( [Segment revenue], REMOVEFILTERS ( Dim_Segment ), Dim_Segment[Segment] = "North America" ), 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 05 Segments
+		lineageTag: 209b2c8d-be50-4f09-aa9c-15ec4f257270
+
+	measure 'International revenue latest' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Segment revenue], REMOVEFILTERS ( Dim_Segment ), Dim_Segment[Segment] = "International", Dim_Year[Year] = y ) + 0
+		formatString: $#,0.0"B"
+		displayFolder: 05 Segments
+		lineageTag: 758a0835-3b2c-433c-a692-626316cfb7a7
+
+	measure 'North America revenue latest' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Segment revenue], REMOVEFILTERS ( Dim_Segment ), Dim_Segment[Segment] = "North America", Dim_Year[Year] = y ) + 0
+		formatString: $#,0.0"B"
+		displayFolder: 05 Segments
+		lineageTag: d53b2a32-8ce5-41d7-ab20-84cbf3c700ef
+
+	measure 'AWS revenue PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Segment revenue], REMOVEFILTERS ( Dim_Segment ), REMOVEFILTERS ( Dim_Year ), Dim_Segment[Segment] = "AWS", Dim_Year[Year] = y - 1 ) + 0
+		formatString: $#,0.0"B";-$#,0.0"B";"—"
+		displayFolder: 12 Prior year
+		lineageTag: 186ac16d-dbdc-4832-adb2-dee8f541754b
+
+	measure 'International revenue PY' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Segment revenue], REMOVEFILTERS ( Dim_Segment ), REMOVEFILTERS ( Dim_Year ), Dim_Segment[Segment] = "International", Dim_Year[Year] = y - 1 ) + 0
+		formatString: $#,0.0"B";-$#,0.0"B";"—"
+		displayFolder: 12 Prior year
+		lineageTag: baf7b68b-eed1-4d13-a33d-485306d23ab1
+
+	column Segment
+		dataType: string
+		lineageTag: 0ae98236-e9e3-4d85-af16-553baba0845d
+		sourceColumn: [Segment]
+
+	column 'Sort order'
+		dataType: int64
+		summarizeBy: none
+		isHidden
+		lineageTag: e5898bc1-cd12-4e0d-ac4c-81e6aa0559dc
+		sourceColumn: [Sort order]
+
+	partition Dim_Segment = calculated
+		mode: import
+		source = DATATABLE("Segment", STRING, "Sort order", INTEGER, {{"North America", 1}, {"International", 2}, {"AWS", 3}})

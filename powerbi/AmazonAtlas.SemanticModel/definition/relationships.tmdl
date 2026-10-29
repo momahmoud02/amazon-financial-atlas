@@ -1,0 +1,39 @@
+relationship rel_fin_year
+	fromColumn: Fact_Financials.Year
+	toColumn: Dim_Year.Year
+
+relationship rel_seg_year
+	fromColumn: Fact_Segments.Year
+	toColumn: Dim_Year.Year
+
+relationship rel_seg_dim
+	fromColumn: Fact_Segments.Segment
+	toColumn: Dim_Segment.Segment
+
+relationship rel_mix_year
+	fromColumn: Fact_RevenueMix.Year
+	toColumn: Dim_Year.Year
+
+relationship rel_mix_stream
+	fromColumn: Fact_RevenueMix.Stream
+	toColumn: Dim_Stream.Stream
+
+relationship rel_exp_year
+	fromColumn: Fact_Expenses.Year
+	toColumn: Dim_Year.Year
+
+relationship rel_exp_line
+	fromColumn: Fact_Expenses.LineItem
+	toColumn: Dim_LineItem.LineItem
+
+relationship rel_audit_year
+	fromColumn: Fact_Audit.Year
+	toColumn: Dim_Year.Year
+
+relationship rel_audit_sheet
+	fromColumn: Fact_Audit.Sheet
+	toColumn: Dim_Sheet.Sheet
+
+relationship rel_market_region
+	fromColumn: Dim_Market.Region
+	toColumn: Dim_Region.Region

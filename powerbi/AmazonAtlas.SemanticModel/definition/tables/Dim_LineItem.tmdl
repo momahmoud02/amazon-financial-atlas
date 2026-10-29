@@ -1,0 +1,33 @@
+table Dim_LineItem
+	lineageTag: 11508f8a-46e3-4239-a3cf-9afe323f8e3f
+
+	measure 'Expense amount' = COALESCE ( SUM ( Fact_Expenses[Amount] ) / 1000, 0 )
+		formatString: $#,0.0"B"
+		displayFolder: 04 Cost base
+		lineageTag: b4261cb8-052a-4079-a81b-5ba5a86f8b70
+
+	measure 'Expense amount latest' = VAR y = MAX ( Dim_Year[Year] ) RETURN CALCULATE ( [Expense amount], Dim_Year[Year] = y ) + 0
+		formatString: $#,0.0"B"
+		displayFolder: 04 Cost base
+		lineageTag: bc17d128-6b90-4ee1-a42a-60c82f69169c
+
+	measure 'Expense share' = COALESCE ( DIVIDE ( [Expense amount], CALCULATE ( [Expense amount], REMOVEFILTERS ( Dim_LineItem ) ) ), 0 )
+		formatString: 0.0%
+		displayFolder: 04 Cost base
+		lineageTag: de6ba801-8bd7-4d9c-a9fb-b3624314e2e5
+
+	column LineItem
+		dataType: string
+		lineageTag: e90f4229-e7ea-4152-aecb-4e4f01aae599
+		sourceColumn: [LineItem]
+
+	column 'Sort order'
+		dataType: int64
+		summarizeBy: none
+		isHidden
+		lineageTag: 4e43ccbf-1711-4e52-abfb-f4ff71e2e57e
+		sourceColumn: [Sort order]
+
+	partition Dim_LineItem = calculated
+		mode: import
+		source = DATATABLE("LineItem", STRING, "Sort order", INTEGER, {{"Cost of sales", 1}, {"Fulfillment", 2}, {"Technology & content", 3}, {"Marketing", 4}, {"General & admin", 5}, {"Other operating", 6}})

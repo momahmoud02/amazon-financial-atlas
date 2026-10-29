@@ -1,0 +1,18 @@
+table Dim_Region
+	lineageTag: 3dc7600b-a071-4481-a26c-0f3968bc3a2e
+
+	column Region
+		dataType: string
+		lineageTag: eebdb734-34d7-4763-a12b-f4148899d3b1
+		sourceColumn: [Region]
+
+	column 'Sort order'
+		dataType: int64
+		summarizeBy: none
+		isHidden
+		lineageTag: 8d892232-02cd-4654-adfa-4ff3ffdefca8
+		sourceColumn: [Sort order]
+
+	partition Dim_Region = calculated
+		mode: import
+		source = DATATABLE("Region", STRING, "Sort order", INTEGER, {{"North America", 1}, {"Europe", 2}, {"Asia-Pacific", 3}, {"Latin America", 4}, {"Middle East", 5}})

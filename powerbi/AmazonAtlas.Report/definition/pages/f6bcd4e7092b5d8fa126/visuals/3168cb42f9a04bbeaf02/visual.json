@@ -1,0 +1,187 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "3168cb42f9a04bbeaf02",
+  "position": {
+    "x": 120.88,
+    "y": 469.46,
+    "z": 572,
+    "height": 382.31,
+    "width": 702.78,
+    "tabOrder": 64
+  },
+  "visual": {
+    "visualType": "appleGlobe7BFE14AA1D8643568FE1F940E57A3BDF",
+    "query": {
+      "queryState": {
+        "country": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Market"
+                    }
+                  },
+                  "Property": "Country"
+                }
+              },
+              "queryRef": "Dim_Market.Country",
+              "nativeQueryRef": "Country"
+            }
+          ]
+        },
+        "revenue": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Market"
+                    }
+                  },
+                  "Property": "Market revenue (avg)"
+                }
+              },
+              "queryRef": "Dim_Market.Market revenue (avg)",
+              "nativeQueryRef": "Market revenue (avg)"
+            }
+          ]
+        },
+        "region": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Market"
+                    }
+                  },
+                  "Property": "Region"
+                }
+              },
+              "queryRef": "Dim_Market.Region",
+              "nativeQueryRef": "Region"
+            }
+          ]
+        },
+        "latitude": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Market"
+                    }
+                  },
+                  "Property": "Latitude"
+                }
+              },
+              "queryRef": "Dim_Market.Latitude",
+              "nativeQueryRef": "Latitude"
+            }
+          ]
+        },
+        "longitude": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dim_Market"
+                    }
+                  },
+                  "Property": "Longitude"
+                }
+              },
+              "queryRef": "Dim_Market.Longitude",
+              "nativeQueryRef": "Longitude"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "globe": [
+        {
+          "properties": {
+            "autoRotate": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "autoRotateSpeed": {
+              "expr": {
+                "Literal": {
+                  "Value": "0.12D"
+                }
+              }
+            },
+            "markerScale": {
+              "expr": {
+                "Literal": {
+                  "Value": "1.2D"
+                }
+              }
+            },
+            "startAngle": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "elements": [
+        {
+          "properties": {
+            "showArcs": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "showLabels": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "showLegend": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "showKpi": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "showTopMarket": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

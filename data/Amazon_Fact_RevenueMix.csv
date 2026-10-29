@@ -1,0 +1,36 @@
+year,revenue_stream,revenue
+2021,Online stores,222075
+2021,Physical stores,17075
+2021,Third-party seller services,103366
+2021,Advertising services,31160
+2021,Subscription services,32272
+2021,AWS,62202
+2021,Other,1672
+2022,Online stores,220004
+2022,Physical stores,18963
+2022,Third-party seller services,117716
+2022,Advertising services,37739
+2022,Subscription services,35218
+2022,AWS,80096
+2022,Other,4247
+2023,Online stores,231872
+2023,Physical stores,20030
+2023,Third-party seller services,140053
+2023,Advertising services,46906
+2023,Subscription services,40209
+2023,AWS,90757
+2023,Other,4958
+2024,Online stores,247029
+2024,Physical stores,21215
+2024,Third-party seller services,156146
+2024,Advertising services,56214
+2024,Subscription services,44374
+2024,AWS,107556
+2024,Other,5425
+2025,Online stores,269287
+2025,Physical stores,22561
+2025,Third-party seller services,172162
+2025,Advertising services,68635
+2025,Subscription services,49619
+2025,AWS,128725
+2025,Other,5935
