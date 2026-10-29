@@ -71,7 +71,7 @@ The fix separated *stored as a fraction* from *shown as a percent*: only `%` met
 ## DAX and report engineering
 
 - Every card reads a `Latest ...` measure anchored on `MAX ( Dim_Year[Year] )`, so an unfiltered page shows FY2025 and not a five-year sum.
-- Navigation is real: all 71 rail icons and the seven "Inside the report" rows carry a `PageNavigation` action, and the paired icon images carry the same link so a click anywhere on the button works.
+- Navigation is real: 63 rail buttons and the seven "Inside the report" rows carry a `PageNavigation` action, the paired icon images carry the same link so a click anywhere on the button works, and the icon for the page you are already on stays highlighted but inert.
 - Filter rails are honest. Each page shows only the slicers that reach at least one visual on that page - Cash and Balance carry fiscal year (and balance line) because Amazon reports those statements at group level - and slicers that appear on several pages share a synchronised group, so a year picked on Home is still set on Revenue.
 - Delta chips return `n/m` when the prior year is negative or missing, and `—` for FY2021, instead of a misleading percentage.
 - `REMOVEFILTERS ( Dim_Year )` keeps the five-year trends intact while the rest of the page follows the selected year.
