@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "2273003558f736124701",
   "position": {
-    "x": 213.65,
+    "x": 667.65,
     "y": 115.26,
     "z": 613,
     "height": 81.52,
@@ -208,6 +208,11 @@
         }
       ]
     },
-    "drillFilterOtherVisuals": true
+    "drillFilterOtherVisuals": true,
+    "syncGroup": {
+      "groupName": "Audit sheet",
+      "fieldChanges": true,
+      "filterChanges": true
+    }
   }
 }

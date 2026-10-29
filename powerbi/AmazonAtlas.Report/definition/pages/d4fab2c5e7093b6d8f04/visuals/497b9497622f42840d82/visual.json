@@ -186,6 +186,33 @@
             "id": "default"
           }
         }
+      ],
+      "visualLink": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "type": {
+              "expr": {
+                "Literal": {
+                  "Value": "'PageNavigation'"
+                }
+              }
+            },
+            "navigationSection": {
+              "expr": {
+                "Literal": {
+                  "Value": "'a1c7e9f2b4d6083a5c71'"
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "visualContainerObjects": {

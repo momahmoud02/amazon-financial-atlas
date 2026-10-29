@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "fa10ce816b7b65f15919",
   "position": {
-    "x": 1121.64,
+    "x": 1121.65,
     "y": 115.26,
     "z": 130,
     "height": 81.52,
@@ -208,6 +208,11 @@
         }
       ]
     },
-    "drillFilterOtherVisuals": true
+    "drillFilterOtherVisuals": true,
+    "syncGroup": {
+      "groupName": "Revenue stream",
+      "fieldChanges": true,
+      "filterChanges": true
+    }
   }
 }

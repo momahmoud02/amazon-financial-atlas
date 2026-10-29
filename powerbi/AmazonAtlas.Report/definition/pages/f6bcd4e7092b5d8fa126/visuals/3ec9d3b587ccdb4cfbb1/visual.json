@@ -208,6 +208,11 @@
         }
       ]
     },
-    "drillFilterOtherVisuals": true
+    "drillFilterOtherVisuals": true,
+    "syncGroup": {
+      "groupName": "Fiscal Year",
+      "fieldChanges": true,
+      "filterChanges": true
+    }
   }
 }

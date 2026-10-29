@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "a4de62b045f23aa54d14",
   "position": {
-    "x": 213.65,
+    "x": 894.65,
     "y": 115.26,
     "z": 369,
     "height": 81.52,
@@ -208,6 +208,11 @@
         }
       ]
     },
-    "drillFilterOtherVisuals": true
+    "drillFilterOtherVisuals": true,
+    "syncGroup": {
+      "groupName": "Fiscal Year",
+      "fieldChanges": true,
+      "filterChanges": true
+    }
   }
 }

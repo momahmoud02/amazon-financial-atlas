@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "00f4cbacc0459cb016b6",
+  "name": "35a4b865cfd7a2c9f078",
   "position": {
-    "x": 1482.87,
-    "y": 144.77,
-    "z": 215,
-    "height": 22.49,
-    "width": 87.14,
-    "tabOrder": 35
+    "x": 1267,
+    "y": 150,
+    "z": 30,
+    "height": 22,
+    "width": 520,
+    "tabOrder": 30
   },
   "visual": {
     "visualType": "textbox",
@@ -19,9 +19,9 @@
               {
                 "textRuns": [
                   {
-                    "value": "LINE ITEM",
+                    "value": "GROUP-LEVEL STATEMENT · AMAZON REPORTS CASH FLOW AT GROUP LEVEL ONLY",
                     "textStyle": {
-                      "fontSize": "8.3pt",
+                      "fontSize": "7.6pt",
                       "color": "#8BA3C4",
                       "fontWeight": "bold",
                       "fontFamily": "Segoe UI"

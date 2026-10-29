@@ -12,7 +12,7 @@ Five fiscal years of Amazon's audited financials, built twice from one corrected
 | Coverage | 3 reportable segments, 7 revenue streams, 15 markets across 5 regions |
 | Tooling | Power BI Desktop (PBIP / PBIR + TMDL), DAX, HTML / CSS / vanilla JS |
 | Model | Star schema: 5 fact tables, 9 dimensions, 1 design table, 172 measures, 10 relationships |
-| Filters | Fiscal year, region, segment, revenue stream, source sheet |
+| Filters | Fiscal year on every page, plus segment, revenue stream, region, expense line, balance line, market tier and audit attributes where the page has visuals that use them; slicers are synchronised across pages |
 | Page size | Power BI: 1920 x 1250 custom canvas, 8 pages, 663 visuals - HTML: 9 responsive pages |
 | Headline | Revenue $469.8B to $716.9B (11.1% CAGR), operating margin 5.3% to 11.2% |
 
@@ -71,6 +71,8 @@ The fix separated *stored as a fraction* from *shown as a percent*: only `%` met
 ## DAX and report engineering
 
 - Every card reads a `Latest ...` measure anchored on `MAX ( Dim_Year[Year] )`, so an unfiltered page shows FY2025 and not a five-year sum.
+- Navigation is real: all 71 rail icons and the seven "Inside the report" rows carry a `PageNavigation` action, and the paired icon images carry the same link so a click anywhere on the button works.
+- Filter rails are honest. Each page shows only the slicers that reach at least one visual on that page - Cash and Balance carry fiscal year (and balance line) because Amazon reports those statements at group level - and slicers that appear on several pages share a synchronised group, so a year picked on Home is still set on Revenue.
 - Delta chips return `n/m` when the prior year is negative or missing, and `—` for FY2021, instead of a misleading percentage.
 - `REMOVEFILTERS ( Dim_Year )` keeps the five-year trends intact while the rest of the page follows the selected year.
 - The globe and the market register answer on presence, tier and AWS regions only - Amazon reports net sales by segment, never by country, so no country revenue is implied anywhere.
